@@ -13,9 +13,8 @@ fs.existsSync = fs.existsSync || path.existsSync
 
 var libPath = path.join(__dirname, 'lib', 'casperjs')
 var tmpPath = path.join(__dirname, 'tmp')
-var downloadUrl = 'https://github.com/n1k0/casperjs/archive/1.0.3.zip'
-
-
+var casperVersion = "master"
+var downloadUrl = 'https://github.com/n1k0/casperjs/archive/' + casperVersion + '.zip'
 
 function isCasperInstalled(notInstalledCallback) {
     cp.exec("which casperjs", function(error, stdout, stderr) {
@@ -38,7 +37,7 @@ function unzipTheZippedFile() {
     zip.extractAllTo(libPath, true);
 
     if (process.platform != 'win32') {
-        var pathToCommand = path.join(libPath, 'casperjs-1.0.3', 'bin', 'casperjs');
+        var pathToCommand = path.join(libPath, 'casperjs-' + casperVersion, 'bin', 'casperjs');
         fs.symlinkSync(pathToCommand, './casperjs');
         var stat = fs.statSync(pathToCommand);
         if (!(stat.mode & 64)) {
