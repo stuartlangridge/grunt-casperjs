@@ -16,9 +16,11 @@ var tmpPath = path.join(__dirname, 'tmp')
 var casperVersion = "master"
 var downloadUrl = 'https://github.com/n1k0/casperjs/archive/' + casperVersion + '.zip'
 
+var OVERRIDE_ALWAYS_INSTALL_CASPER = true;
+
 function isCasperInstalled(notInstalledCallback) {
     cp.exec("which casperjs", function(error, stdout, stderr) {
-        if ( error ) {
+        if ( OVERRIDE_ALWAYS_INSTALL_CASPER || error ) {
             console.log("Casperjs not installed.  Installing.");
             notInstalledCallback();
         } else {
